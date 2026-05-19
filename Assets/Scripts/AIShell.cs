@@ -3,7 +3,7 @@ using UnityEngine;
 public class AIShell : MonoBehaviour
 {
     public GameObject explosion;
-    
+    private Rigidbody _rigidBody;
 
     void OnCollisionEnter(Collision col)
     {
@@ -18,12 +18,12 @@ public class AIShell : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        _rigidBody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-
+        transform.forward = _rigidBody.linearVelocity;
     }
 }

@@ -5,7 +5,8 @@ using UnityEngine.Serialization;
 
 public class FireShell : MonoBehaviour
 {
-    public float speed = 15;
+    [FormerlySerializedAs("speed")] public float projectileSpeed = 15;
+    public float moveSpeed = 1.0f;
     public float rotationSpeed = 5.0f;
     public GameObject bullet;
     public GameObject bulletSpawn;
@@ -25,26 +26,32 @@ public class FireShell : MonoBehaviour
         Vector3 direction = (enemy.transform.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0.0f, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
-        RotateTurret();
-        if (InputSystem.actions["Attack"].WasReleasedThisFrame())
+        float? angle = RotateTurret();
+        if (angle!=null)
         {
             CreateBullet();
+        }
+        else
+        {
+            transform.Translate(Vector3.forward * Time.deltaTime * moveSpeed);
         }
     }
     
     void CreateBullet()
     {
-        Instantiate(bullet, bulletSpawn.transform.position, bulletSpawn.transform.rotation);
+        GameObject shell = Instantiate(bullet, bulletSpawn.transform.position, bulletSpawn.transform.rotation);
+        shell.GetComponent<Rigidbody>().linearVelocity = projectileSpeed * turretTransform.forward;
     }
 
-    void RotateTurret()
+    float? RotateTurret()
     {
-        float? angle = CalculateAngle(true);
+        float? angle = CalculateAngle(false);
         if (angle != null)
         {
             turretTransform.localEulerAngles = new Vector3(360f - (float)angle, 0f, 0f);
         }
-        
+
+        return angle;
     }
     
     float? CalculateAngle(bool low)
@@ -55,7 +62,7 @@ public class FireShell : MonoBehaviour
         directionOfTarget.y = 0f;
         float x = directionOfTarget.magnitude;
         float gravity = 9.81f;
-        float speedSqr = speed * speed;
+        float speedSqr = projectileSpeed * projectileSpeed;
         float underTheSqrRoot = speedSqr*speedSqr - gravity *(gravity*x*x+2*y*speedSqr);
         
         if (underTheSqrRoot >= 0f)
