@@ -103,4 +103,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f81b1af70372b29438212fd758581beb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoveShell
-  speedMetersPerSecond: 10
+  speedMetersPerSecond: 3
