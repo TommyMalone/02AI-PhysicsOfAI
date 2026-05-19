@@ -212,8 +212,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84af083a82f5feb459705532ebf595dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FireShell
-  bullet: {fileID: 7010474141640189635, guid: e40cf70ffe083e848a14f85562e7e267, type: 3}
-  turret: {fileID: 671416925}
+  speed: 15
+  rotationSpeed: 5
+  bullet: {fileID: 7010474141640189635, guid: 91bac912f695a2e478bf8014851cefbc, type: 3}
+  bulletSpawn: {fileID: 671416925}
+  turret: {fileID: 1671068709}
   enemy: {fileID: 620903246}
 --- !u!65 &671588603
 BoxCollider:
@@ -575,6 +578,11 @@ Transform:
 --- !u!4 &1166802391 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6880403096463785013, guid: e57a33c6f3b0e4cb2a2af014c265b239, type: 3}
+  m_PrefabInstance: {fileID: 1354003426666338538}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1671068709 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6027507690873376459, guid: e57a33c6f3b0e4cb2a2af014c265b239, type: 3}
   m_PrefabInstance: {fileID: 1354003426666338538}
   m_PrefabAsset: {fileID: 0}
 --- !u!850595691 &1813538879
