@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class FireShell : MonoBehaviour
 {
+    public float rotationSpeed = 5.0f;
     public GameObject bullet;
     public GameObject turret;
     public GameObject enemy;
@@ -16,13 +17,11 @@ public class FireShell : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector3 direction = (enemy.transform.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0.0f, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
         if (InputSystem.actions["Attack"].WasReleasedThisFrame())
         {
-            Vector3 aimAt = CalculateTrajectory();
-            if (aimAt != Vector3.zero)
-            {
-                transform.forward = aimAt;
-            }
             CreateBullet();
         }
     }
@@ -30,48 +29,5 @@ public class FireShell : MonoBehaviour
     void CreateBullet()
     {
         Instantiate(bullet, turret.transform.position, turret.transform.rotation);
-    }
-
-    Vector3 CalculateTrajectory()
-    {
-        Vector3 relativePositionOfTarget = enemy.transform.position - transform.position;
-        Vector3 velocityOfTarget = enemy.transform.forward * enemy.GetComponent<Drive>().speed;
-        float projectileSpeed = bullet.GetComponent<MoveShell>().speedMetersPerSecond;
-
-        //Solving for terms in the quadratic equation https://en.wikipedia.org/wiki/Quadratic_equation
-        float a = Vector3.Dot(velocityOfTarget, velocityOfTarget) - projectileSpeed * projectileSpeed;
-        float b = Vector3.Dot(relativePositionOfTarget, velocityOfTarget);
-        float c = Vector3.Dot(relativePositionOfTarget, relativePositionOfTarget);
-        float d = b * b - a * c;
-        
-        if (d < 0.1f)
-        {
-            return Vector3.zero;
-        }
-
-        float sqrtD = Mathf.Sqrt(d);
-        float t1 = (-b - sqrtD) / c;
-        float t2 = (-b + sqrtD) / c;
-        
-        float t = 0;
-        if (t1 < 0 && t2 < 0)
-        {
-            t = 0;
-        }
-        else if (t1 < 0)
-        {
-            t = t2;
-        }
-        else if (t2<0)
-        {
-            t = t1;
-        }
-        else
-        {
-            t=Mathf.Max(t1, t2);
-        }
-
-        return t * relativePositionOfTarget + velocityOfTarget;
-
     }
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Shell : MonoBehaviour
 {
-
     public GameObject explosion;
     public float mass = 1.0f;
     public float force = 1.0f;

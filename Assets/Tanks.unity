@@ -685,7 +685,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2182668876329722018, guid: e57a33c6f3b0e4cb2a2af014c265b239, type: 3}
       propertyPath: m_Name
-      value: Tank
+      value: AITank
       objectReference: {fileID: 0}
     - target: {fileID: 2182668876329722018, guid: e57a33c6f3b0e4cb2a2af014c265b239, type: 3}
       propertyPath: m_TagString
@@ -767,7 +767,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 779faaa7659374a07984d4f51f044a29, type: 2}
     - target: {fileID: 1043457633746962670, guid: f8df63ccbdfa54d54833de3ea7e2ce5a, type: 3}
       propertyPath: m_Name
-      value: Enemy
+      value: PlayerTank
       objectReference: {fileID: 0}
     - target: {fileID: 1043457633746962670, guid: f8df63ccbdfa54d54833de3ea7e2ce5a, type: 3}
       propertyPath: m_TagString
