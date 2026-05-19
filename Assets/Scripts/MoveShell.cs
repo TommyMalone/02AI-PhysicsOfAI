@@ -6,6 +6,6 @@ public class MoveShell : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(speedMetersPerSecond * Time.deltaTime * transform.forward);
+        transform.Translate(speedMetersPerSecond * Time.deltaTime * transform.forward, Space.World);
     }
 }
