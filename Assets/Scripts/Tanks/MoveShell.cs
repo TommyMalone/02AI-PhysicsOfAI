@@ -1,11 +1,14 @@
 using UnityEngine;
 
-public class MoveShell : MonoBehaviour
+namespace Tanks
 {
-    public float speedMetersPerSecond = 1.0f;
-    // Update is called once per frame
-    private void Update()
+    public class MoveShell : MonoBehaviour
     {
-        transform.Translate(speedMetersPerSecond * Time.deltaTime * transform.forward, Space.World);
+        public float speedMetersPerSecond = 1.0f;
+        // Update is called once per frame
+        private void Update()
+        {
+            transform.Translate(speedMetersPerSecond * Time.deltaTime * transform.forward, Space.World);
+        }
     }
 }

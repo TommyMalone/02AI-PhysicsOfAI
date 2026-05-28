@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 
-public class FixedUpdateMove : MonoBehaviour
+namespace UpdateMove
 {
-    public bool doesAccountForDeltaTime = false;
-    public float speed = 1;
-
-    private void FixedUpdate()
+    public class FixedUpdateMove : MonoBehaviour
     {
-        Vector3 velocity = new Vector3(0, 0, speed*(doesAccountForDeltaTime ? Time.deltaTime : 1));
-        transform.Translate(velocity, Space.World);
+        public bool doesAccountForDeltaTime = false;
+        public float speed = 1;
+
+        private void FixedUpdate()
+        {
+            Vector3 velocity = new Vector3(0, 0, speed*(doesAccountForDeltaTime ? Time.deltaTime : 1));
+            transform.Translate(velocity, Space.World);
+        }
     }
 }

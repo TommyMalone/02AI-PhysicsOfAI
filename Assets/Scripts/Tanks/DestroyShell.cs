@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 
-public class DestroyShell : MonoBehaviour
+namespace Tanks
 {
-    // Start is called before the first frame update
-    private void Start()
+    public class DestroyShell : MonoBehaviour
     {
-        Destroy(this.gameObject, 3);  
-    }
+        // Start is called before the first frame update
+        private void Start()
+        {
+            Destroy(this.gameObject, 3);  
+        }
 
+    }
 }

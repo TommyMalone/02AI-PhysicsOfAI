@@ -1,40 +1,43 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerTank : Tank
+namespace Tanks
 {
-    [SerializeField] private float mouseSensitivity = 0.015f; // degrees per mouse pixel
-
-    private void Start()
+    public class PlayerTank : Tank
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
+        [SerializeField] private float mouseSensitivity = 0.015f; // degrees per mouse pixel
 
-    private void Update()
-    {
-        Vector2 moveInput = InputSystem.actions["Move"].ReadValue<Vector2>();
-
-        if (moveInput.y != 0)
+        private void Start()
         {
-            MoveTank(moveInput.y > 0, Time.deltaTime);
-        }
-        if (moveInput.x != 0)
-        {
-            RotateTank(moveInput.x > 0, Time.deltaTime);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
-        Vector2 lookInput = InputSystem.actions["Look"].ReadValue<Vector2>();
-
-        if (lookInput.y != 0 || lookInput.x != 0)
+        private void Update()
         {
-            RotateTurret(lookInput.y * mouseSensitivity, lookInput.x * mouseSensitivity, Time.deltaTime);
-        }
+            Vector2 moveInput = InputSystem.actions["Move"].ReadValue<Vector2>();
+
+            if (moveInput.y != 0)
+            {
+                MoveTank(moveInput.y > 0, Time.deltaTime);
+            }
+            if (moveInput.x != 0)
+            {
+                RotateTank(moveInput.x > 0, Time.deltaTime);
+            }
+
+            Vector2 lookInput = InputSystem.actions["Look"].ReadValue<Vector2>();
+
+            if (lookInput.y != 0 || lookInput.x != 0)
+            {
+                RotateTurret(lookInput.y * mouseSensitivity, lookInput.x * mouseSensitivity, Time.deltaTime);
+            }
             
-        if ((InputSystem.actions["Attack"].WasReleasedThisFrame() || InputSystem.actions["Interact"].WasReleasedThisFrame()) && CanFire())
-        {
-            FireShell();
+            if ((InputSystem.actions["Attack"].WasReleasedThisFrame() || InputSystem.actions["Interact"].WasReleasedThisFrame()) && CanFire())
+            {
+                FireShell();
+            }
         }
-    }
     
+    }
 }

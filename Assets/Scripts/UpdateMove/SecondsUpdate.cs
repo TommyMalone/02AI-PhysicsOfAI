@@ -1,19 +1,22 @@
 ﻿using UnityEngine;
 
-public class SecondsUpdate : MonoBehaviour
+namespace UpdateMove
 {
-    public float speed = 1;
-    private float _timeStartOffset = 0;
-    private bool _gotStartTime = false;
-
-    private void Update()
+    public class SecondsUpdate : MonoBehaviour
     {
-        if (!_gotStartTime)
-        {
-            _timeStartOffset = Time.realtimeSinceStartup;
-            _gotStartTime = true;
-        }
+        public float speed = 1;
+        private float _timeStartOffset = 0;
+        private bool _gotStartTime = false;
 
-        transform.position = new Vector3(transform.position.x, transform.position.y, (Time.realtimeSinceStartup - _timeStartOffset)*speed);
+        private void Update()
+        {
+            if (!_gotStartTime)
+            {
+                _timeStartOffset = Time.realtimeSinceStartup;
+                _gotStartTime = true;
+            }
+
+            transform.position = new Vector3(transform.position.x, transform.position.y, (Time.realtimeSinceStartup - _timeStartOffset)*speed);
+        }
     }
 }
