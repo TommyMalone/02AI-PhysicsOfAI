@@ -6,7 +6,16 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/SceneSelect.unity
+    guid: 33d64032660b7714a852c245bda4d5df
+  - enabled: 1
+    path: Assets/Scenes/Time.unity
+    guid: 9e046f343fda946c88db409e32358bbf
+  - enabled: 1
+    path: Assets/Scenes/AccountingForDeltaTime.unity
+    guid: 5f96584ca58b199469e79174da1dd5ff
+  - enabled: 1
+    path: Assets/Scenes/Tanks.unity
+    guid: 880344dbb252a4b3a86607b9890c7228
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
