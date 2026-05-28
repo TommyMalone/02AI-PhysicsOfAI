@@ -770,7 +770,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f2498cc5604e4efead5346a4f0e2947, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doesAccountForDeltaTime: 0
+  doesAccountForDeltaTime: 1
   speed: 0.1
 --- !u!1 &937509916 stripped
 GameObject:
@@ -1571,7 +1571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb63f96f3a2334ac09def8b78de333e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doesAccountForDeltaTime: 0
+  doesAccountForDeltaTime: 1
   speed: 0.1
 --- !u!1 &2030971459 stripped
 GameObject:
@@ -1590,7 +1590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13981ecc809f14169a682c7d1beb85be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doesAccountForDeltaTime: 0
+  doesAccountForDeltaTime: 1
   speed: 0.1
 --- !u!850595691 &2100970709
 LightingSettings:
