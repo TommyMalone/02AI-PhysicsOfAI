@@ -136,13 +136,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bb9c603107c642de9ef047fa6765497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  tankRotationSpeed: 100
-  verticalTurretRotationSpeed: 30
-  horizontalTurretRotationSpeed: 30
-  gunTransform: {fileID: 720500519}
-  bulletSpawn: {fileID: 2001234820}
-  bullet: {fileID: 7010474141640189635, guid: e40cf70ffe083e848a14f85562e7e267, type: 3}
+  initialProjectileSpeed: 30
+  movementSpeed: 15
+  rotationSpeed: 180
+  maxPitch: 80
+  minPitch: -30
+  turretYawRotationAcceleration: 8
+  turretMaxYawRotationSpeed: 360
+  turretMaxPitchRotationSpeed: 120
+  shotsPerSecond: 1
+  shellType: {fileID: 7010474141640189635, guid: 91bac912f695a2e478bf8014851cefbc, type: 3}
+  shellSpawn: {fileID: 2001234820}
+  turretTransform: {fileID: 720500519}
+  mouseSensitivity: 0.012
 --- !u!65 &620903249
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -212,11 +218,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84af083a82f5feb459705532ebf595dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FireShell
-  speed: 15
+  initialProjectileSpeed: 15
+  movementSpeed: 1
   rotationSpeed: 5
-  bullet: {fileID: 7010474141640189635, guid: 91bac912f695a2e478bf8014851cefbc, type: 3}
-  bulletSpawn: {fileID: 671416925}
-  turretTransform: {fileID: 1166802391}
+  maxPitch: 80
+  minPitch: 0
+  turretYawRotationAcceleration: 8
+  turretMaxYawRotationSpeed: 30
+  turretMaxPitchRotationSpeed: 30
+  shotsPerSecond: 1
+  shellType: {fileID: 7010474141640189635, guid: 91bac912f695a2e478bf8014851cefbc, type: 3}
+  shellSpawn: {fileID: 671416926}
+  turretTransform: {fileID: 671416926}
+  stopDistance: 10
+  shootLowAngle: 1
   enemy: {fileID: 620903246}
 --- !u!65 &671588603
 BoxCollider:
@@ -689,6 +704,10 @@ PrefabInstance:
     - target: {fileID: 2182668876329722018, guid: e57a33c6f3b0e4cb2a2af014c265b239, type: 3}
       propertyPath: m_Name
       value: AITank
+      objectReference: {fileID: 0}
+    - target: {fileID: 2182668876329722018, guid: e57a33c6f3b0e4cb2a2af014c265b239, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2182668876329722018, guid: e57a33c6f3b0e4cb2a2af014c265b239, type: 3}
       propertyPath: m_TagString

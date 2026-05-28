@@ -1,21 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SecondsUpdate : MonoBehaviour
 {
     public float speed = 1;
-    float timeStartOffset = 0;
-    bool gotStartTime = false;
-    
-    void Update()
+    private float _timeStartOffset = 0;
+    private bool _gotStartTime = false;
+
+    private void Update()
     {
-        if (!gotStartTime)
+        if (!_gotStartTime)
         {
-            timeStartOffset = Time.realtimeSinceStartup;
-            gotStartTime = true;
+            _timeStartOffset = Time.realtimeSinceStartup;
+            _gotStartTime = true;
         }
 
-        transform.position = new Vector3(transform.position.x, transform.position.y, (Time.realtimeSinceStartup - timeStartOffset)*speed);
+        transform.position = new Vector3(transform.position.x, transform.position.y, (Time.realtimeSinceStartup - _timeStartOffset)*speed);
     }
 }

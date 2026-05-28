@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Shell : MonoBehaviour
 {
@@ -9,15 +7,15 @@ public class Shell : MonoBehaviour
     public float force = 1.0f;
     private float _forwardSpeedMetersPerSecond = 0;
     private float _forwardAcceleration;
-    private float _drag = 1.0f;
-    private float _gravity = -9.81f;
+    private const float Drag = 1.0f;
+    private const float Gravity = -9.81f;
     private float _gravityAcceleration;
-    private float _downardSpeedMetersPerSecond = 0;
-    
+    private float _downwardSpeedMetersPerSecond = 0;
 
-    void OnCollisionEnter(Collision col)
+
+    private void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.tag == "tank")
+        if (col.gameObject.CompareTag($"tank"))
         {
             GameObject exp = Instantiate(explosion, this.transform.position, Quaternion.identity);
             Destroy(exp, 0.5f);
@@ -26,19 +24,19 @@ public class Shell : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _forwardAcceleration = force / mass;
         _forwardSpeedMetersPerSecond += _forwardAcceleration * 1;
-        _gravityAcceleration = _gravity / mass;
+        _gravityAcceleration = Gravity / mass;
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    private void LateUpdate()
     {
-        _forwardSpeedMetersPerSecond *= 1 - Time.deltaTime * _drag;
-        _downardSpeedMetersPerSecond += _gravityAcceleration*Time.deltaTime;;
+        _forwardSpeedMetersPerSecond *= 1 - Time.deltaTime * Drag;
+        _downwardSpeedMetersPerSecond += _gravityAcceleration*Time.deltaTime;;
         transform.Translate(_forwardSpeedMetersPerSecond * Time.deltaTime * transform.forward, Space.World);
-        transform.Translate(_downardSpeedMetersPerSecond * Time.deltaTime * Vector3.up, Space.World);
+        transform.Translate(_downwardSpeedMetersPerSecond * Time.deltaTime * Vector3.up, Space.World);
     }
 }
