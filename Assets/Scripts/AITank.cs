@@ -16,18 +16,18 @@ public class AITank : Tank
             bool shouldMoveForward = Vector3.Dot(transform.forward, directionToEnemyXZ) >= 0f;
             if (directionToEnemyXZ.sqrMagnitude >= stopDistance*stopDistance)
             {
-                MoveTank(shouldMoveForward);
+                MoveTank(shouldMoveForward, Time.fixedDeltaTime);
             }
             
             Quaternion targetBodyRotation = Quaternion.LookRotation(directionToEnemyXZ.normalized * (shouldMoveForward ? 1 : -1),  Vector3.up);
-            RotateTankToward(targetBodyRotation);
+            RotateTankToward(targetBodyRotation, Time.fixedDeltaTime);
 
             float? targetPitch = CalculateTargetTurretPitchAngle(shootLowAngle);
             float targetYaw = CalculateTargetTurretYawAngle();
 
             if (targetPitch.HasValue)
             {
-                RotateTurretToward(targetPitch.Value, targetYaw);
+                RotateTurretToward(targetPitch.Value, targetYaw, Time.fixedDeltaTime);
             }
 
             bool hasShot = targetPitch.HasValue && IsTurretAimed(targetPitch, targetYaw);

@@ -24,30 +24,30 @@ public class Tank : MonoBehaviour
         _collider = GetComponent<Collider>();
     }
 
-    protected void MoveTank(bool moveForward)
+    protected void MoveTank(bool moveForward, float deltaTime)
     {
         float moveDirection = moveForward ? 1 : -1;
-        transform.Translate(transform.forward * (moveDirection * movementSpeed * Time.fixedDeltaTime), Space.World);
+        transform.Translate(transform.forward * (moveDirection * movementSpeed * deltaTime), Space.World);
     }
         
-    protected void RotateTank(bool rotateClockwise)
+    protected void RotateTank(bool rotateClockwise, float deltaTime)
     {
         float turnDirection = rotateClockwise ? 1 : -1;
-        Quaternion turnRotation = Quaternion.AngleAxis(turnDirection * rotationSpeed * Time.fixedDeltaTime, Vector3.up);
+        Quaternion turnRotation = Quaternion.AngleAxis(turnDirection * rotationSpeed * deltaTime, Vector3.up);
         Quaternion newRotation = turnRotation * transform.rotation;
         transform.rotation = newRotation;
     }
-    protected void RotateTankToward(Quaternion lookRotation)
+    protected void RotateTankToward(Quaternion lookRotation,float deltaTime)
     {
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, Time.fixedDeltaTime * rotationSpeed);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, deltaTime * rotationSpeed);
     }
         
-    protected void RotateTurret(float deltaPitch, float deltaYaw)
+    protected void RotateTurret(float deltaPitch, float deltaYaw,float deltaTime)
     {
-        deltaPitch = Mathf.Clamp(deltaPitch, -turretMaxPitchRotationSpeed * Time.fixedDeltaTime, turretMaxPitchRotationSpeed * Time.fixedDeltaTime);
+        deltaPitch = Mathf.Clamp(deltaPitch, -turretMaxPitchRotationSpeed * deltaTime, turretMaxPitchRotationSpeed * deltaTime);
         _turretPitch += deltaPitch;
         _turretPitch = Mathf.Clamp(_turretPitch, minPitch, maxPitch);
-        deltaYaw = Mathf.Clamp(deltaYaw, -turretMaxYawRotationSpeed * Time.fixedDeltaTime, turretMaxYawRotationSpeed * Time.fixedDeltaTime);
+        deltaYaw = Mathf.Clamp(deltaYaw, -turretMaxYawRotationSpeed * deltaTime, turretMaxYawRotationSpeed * deltaTime);
         _turretYaw += deltaYaw;
 
         Quaternion yawRotation = Quaternion.AngleAxis(_turretYaw, Vector3.up);
@@ -56,14 +56,14 @@ public class Tank : MonoBehaviour
         turretTransform.localRotation = yawRotation * pitchRotation;
     }
         
-    protected void RotateTurretToward(float targetPitch, float targetYaw)
+    protected void RotateTurretToward(float targetPitch, float targetYaw, float deltaTime)
     {
         float deltaPitch = Mathf.DeltaAngle(_turretPitch, targetPitch);
         float deltaYaw = Mathf.DeltaAngle(_turretYaw, targetYaw);
 
         if (deltaPitch != 0 || deltaYaw != 0)
         {
-            RotateTurret(deltaPitch, deltaYaw);
+            RotateTurret(deltaPitch, deltaYaw, deltaTime);
         }
     }
 

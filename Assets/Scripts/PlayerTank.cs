@@ -13,28 +13,25 @@ public class PlayerTank : Tank
 
     private void Update()
     {
-        // Get the horizontal and vertical axis.
-        // By default they are mapped to the arrow keys.
-        // The value is in the range -1 to 1
         Vector2 moveInput = InputSystem.actions["Move"].ReadValue<Vector2>();
 
         if (moveInput.y != 0)
         {
-            MoveTank(moveInput.y > 0);
+            MoveTank(moveInput.y > 0, Time.deltaTime);
         }
         if (moveInput.x != 0)
         {
-            RotateTank(moveInput.x > 0);
+            RotateTank(moveInput.x > 0, Time.deltaTime);
         }
 
         Vector2 lookInput = InputSystem.actions["Look"].ReadValue<Vector2>();
 
         if (lookInput.y != 0 || lookInput.x != 0)
         {
-            RotateTurret(lookInput.y * mouseSensitivity, lookInput.x * mouseSensitivity);
+            RotateTurret(lookInput.y * mouseSensitivity, lookInput.x * mouseSensitivity, Time.deltaTime);
         }
             
-        if (InputSystem.actions["Attack"].WasReleasedThisFrame() || InputSystem.actions["Interact"].WasReleasedThisFrame() && CanFire())
+        if ((InputSystem.actions["Attack"].WasReleasedThisFrame() || InputSystem.actions["Interact"].WasReleasedThisFrame()) && CanFire())
         {
             FireShell();
         }
