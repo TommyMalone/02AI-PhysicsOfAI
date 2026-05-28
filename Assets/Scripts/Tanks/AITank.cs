@@ -4,7 +4,6 @@ namespace Tanks
 {
     public class AITank : Tank
     {
-        public float stopDistance = 10;
         public bool shootLowAngle = true;
         public float fireAngleTolerance = 2f;
         public GameObject enemy;
@@ -16,34 +15,33 @@ namespace Tanks
                 Vector3 directionToEnemyXZ = enemy.transform.position - transform.position;
                 directionToEnemyXZ.y = 0;
                 bool shouldMoveForward = Vector3.Dot(transform.forward, directionToEnemyXZ) >= 0f;
-                if (directionToEnemyXZ.sqrMagnitude >= stopDistance*stopDistance)
-                {
-                    MoveTank(shouldMoveForward, Time.fixedDeltaTime);
-                }
-            
+                
                 Quaternion targetBodyRotation = Quaternion.LookRotation(directionToEnemyXZ.normalized * (shouldMoveForward ? 1 : -1),  Vector3.up);
                 RotateTankToward(targetBodyRotation, Time.fixedDeltaTime);
 
-                float? targetPitch = CalculateTargetTurretPitchAngle(shootLowAngle);
-                float targetYaw = CalculateTargetTurretYawAngle();
+                float? targetPitch = CalculateTargetTurretPitchAngle(shootLowAngle, enemy.transform.position);
+                float targetYaw = CalculateTargetTurretYawAngle(enemy.transform.position);
 
-                if (targetPitch.HasValue)
+                if (!targetPitch.HasValue)
+                {
+                    MoveTank(shouldMoveForward, Time.fixedDeltaTime);
+                }
+                else
                 {
                     RotateTurretToward(targetPitch.Value, targetYaw, Time.fixedDeltaTime);
                 }
-
-                bool hasShot = targetPitch.HasValue && IsTurretAimed(targetPitch, targetYaw);
-                if (CanFire() && hasShot)
+                
+                if (CanFire() && IsTurretAimed(targetPitch, targetYaw))
                 {
                     FireShell();
                 }
             }
         }
 
-        private float? CalculateTargetTurretPitchAngle(bool low)
+        private float? CalculateTargetTurretPitchAngle(bool low, Vector3 targetPosition)
         {
             //Projectile motion equation: https://en.wikipedia.org/wiki/Projectile_motion#Angle_%CE%B8_required_to_hit_coordinate_(x,_y)
-            Vector3 directionOfTarget = enemy.transform.position - shellSpawn.position;
+            Vector3 directionOfTarget = targetPosition - shellSpawn.position;
             float y = directionOfTarget.y;
             directionOfTarget.y = 0f;
             float x = directionOfTarget.magnitude;
@@ -71,9 +69,9 @@ namespace Tanks
             }
         }
 
-        private float CalculateTargetTurretYawAngle()
+        private float CalculateTargetTurretYawAngle(Vector3 targetPosition)
         {
-            Vector3 localTarget = transform.InverseTransformPoint(enemy.transform.position);
+            Vector3 localTarget = transform.InverseTransformPoint(targetPosition);
             localTarget.y = 0f;
             return Mathf.Atan2(localTarget.x, localTarget.z) * Mathf.Rad2Deg;
         }
