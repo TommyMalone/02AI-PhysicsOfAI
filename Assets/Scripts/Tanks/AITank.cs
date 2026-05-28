@@ -26,10 +26,7 @@ namespace Tanks
                 {
                     MoveTank(shouldMoveForward, Time.fixedDeltaTime);
                 }
-                else
-                {
-                    RotateTurretToward(targetPitch.Value, targetYaw, Time.fixedDeltaTime);
-                }
+                RotateTurretToward(targetPitch, targetYaw, Time.fixedDeltaTime);
                 
                 if (CanFire() && IsTurretAimed(targetPitch, targetYaw))
                 {

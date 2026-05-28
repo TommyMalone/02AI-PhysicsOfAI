@@ -58,9 +58,9 @@ namespace Tanks
             turretTransform.localRotation = yawRotation * pitchRotation;
         }
         
-        protected void RotateTurretToward(float targetPitch, float targetYaw, float deltaTime)
+        protected void RotateTurretToward(float? targetPitch, float targetYaw, float deltaTime)
         {
-            float deltaPitch = Mathf.DeltaAngle(_turretPitch, targetPitch);
+            float deltaPitch = targetPitch.HasValue ? Mathf.DeltaAngle(_turretPitch, targetPitch.Value) : 0;
             float deltaYaw = Mathf.DeltaAngle(_turretYaw, targetYaw);
 
             if (deltaPitch != 0 || deltaYaw != 0)
