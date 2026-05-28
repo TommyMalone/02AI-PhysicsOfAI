@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Drive : Tank
+public class PlayerTank : Tank
 {
     [SerializeField] private float mouseSensitivity = 0.015f; // degrees per mouse pixel
 

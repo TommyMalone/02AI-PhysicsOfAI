@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FireShell : Tank
+public class AITank : Tank
 {
     public float stopDistance = 10;
     public bool shootLowAngle = true;
